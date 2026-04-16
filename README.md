@@ -22,6 +22,8 @@ typst compile ./examples/main.typ --root .
 
 运行命令 `git clone https://github.com/nftuoa/touying-lzu`，克隆本仓库到本地。
 
+之后你可以参考实例`./examples/main.typ`，基于模板`./template/main.typ`创作自己的幻灯片。
+
 ## 版权信息/License
 
 与原项目保持一致，该项目仍保持MIT开源协议授权。\

@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check tag against typst.toml version
+        id: meta
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"$/\1/p' typst.toml | head -n1)
+          tag_version="${GITHUB_REF_NAME#v}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ -z "$version" ]; then
+            echo "::error::Cannot read version from typst.toml"
+            exit 1
+          fi
+          if [ "$version" != "$tag_version" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match typst.toml version ${version}"
+            exit 1
+          fi
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v4
+        with:
+          # Keep in sync with the version used to develop the template.
+          typst-version: "0.15.1"
+
+      - name: Install CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-cache -f
+
+      - name: Compile example PDF
+        run: |
+          mkdir -p dist
+          typst compile ./examples/main.typ "dist/touying-lzu-${GITHUB_REF_NAME}.pdf" --root .
+
+      - name: Package template
+        run: |
+          mkdir -p dist/package
+          cp -r lib.typ typst.toml template examples vi LICENSE README.md thumbnail.png dist/package/
+          cd dist/package
+          zip -r -X "../touying-lzu-${GITHUB_REF_NAME}.zip" .
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "dist/touying-lzu-${GITHUB_REF_NAME}.zip" \
+            "dist/touying-lzu-${GITHUB_REF_NAME}.pdf" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            --verify-tag

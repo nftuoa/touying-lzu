@@ -1,12 +1,12 @@
 [package]
-name = "touying-simpl-sjtu"
+name = "touying-lzu"
 version = "0.1.1"
 entrypoint = "lib.typ"
-authors = ["tzhtaylor"]
+authors = ["nftuoa"]
 license = "MIT"
-description = "上海交通大学 Touying 幻灯片主题 (Touying Slide Theme for SJTU)"
-repository = "https://github.com/sjtug/touying-sjtu"
-keywords = ["touying", "slide", "sjtu"]
+description = "兰州大学 Touying 幻灯片主题 (Touying Slide Theme for LZU)"
+repository = "https://github.com/nftuoa/touying-lzu"
+keywords = ["touying", "slide", "lzu"]
 categories = ["presentation"]
 
 [template]

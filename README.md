@@ -2,7 +2,7 @@
 
 本模板基于上海交通大学 Touying 幻灯片主题[touying-sjtu](https://github.com/sjtug/touying-sjtu)修改而来，原主题基于Touying [Dewdrop](https://github.com/touying-typ/touying/blob/main/themes/dewdrop.typ) 主题开发。
 
-![Thumbnail of the project](https://github.com/nftuoa/touying-lzu/blob/main/thumbnail.png)
+![Thumbnail of the project](thumbnail.png)
 
 ## 示例
 

@@ -16,7 +16,7 @@
     subtitle: [基于 Touying 的兰州大学 Typst 幻灯片模板],
     author: [nftuoa],
     date: datetime.today(),
-    institution: [兰州大学信息科学与工程学院],
+    institution: [兰州大学人工智能学院],
   ),
 )
 
